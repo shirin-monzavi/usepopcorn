@@ -56,7 +56,7 @@ export default function App() {
 
   return (
     <>
-      <NavBar />
+      <NavBar movies={movies} />
       <main className="main">
         <ListBox movies={movies} />
         <WatchedBox watched={watched} />
@@ -65,12 +65,12 @@ export default function App() {
   );
 }
 
-export function NavBar() {
+export function NavBar({ movies }) {
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <SummaryResult />
+      <SummaryResult movies={movies} />
     </nav>
   );
 }
@@ -98,10 +98,11 @@ export function Search() {
   );
 }
 
-export function SummaryResult() {
+export function SummaryResult({ movies }) {
+  const count = movies.length;
   return (
     <p className="num-results">
-      Found <strong>X</strong> results
+      Found <strong>{count}</strong> results
     </p>
   );
 }
