@@ -56,22 +56,30 @@ export default function App() {
 
   return (
     <>
-      <NavBar movies={movies} />
-      <main className="main">
-        <ListBox movies={movies} />
-        <WatchedBox watched={watched} />
-      </main>
+      <NavBar>
+        <SummaryResult movies={movies} />
+      </NavBar>
+      <Main movies={movies} watched={watched} />
     </>
   );
 }
 
-export function NavBar({ movies }) {
+export function NavBar({ children }) {
   return (
     <nav className="nav-bar">
       <Logo />
       <Search />
-      <SummaryResult movies={movies} />
+      {children}
     </nav>
+  );
+}
+
+export function Main({ movies, watched }) {
+  return (
+    <main className="main">
+      <ListBox movies={movies} />
+      <WatchedBox watched={watched} />
+    </main>
   );
 }
 
