@@ -19,7 +19,8 @@ const starStyle = {
     display: "block"
 }
 export default function StarRating({ maxRate = 5 }) {
-    const [rate, setRate] = useState(1);
+    const [rate, setRate] = useState(0);
+    const [tempRate, setTempRate] = useState(0);
 
     function handleRate(index) {
         setRate(index);
@@ -28,19 +29,27 @@ export default function StarRating({ maxRate = 5 }) {
         <div style={container}>
             <div style={starContainer}>
                 {Array.from({ length: maxRate }, (_, i) => {
-                    return <Star key={i} onRate={() => handleRate(i + 1)} full={rate >= i + 1} />
+                    return <Star key={i}
+                        onRate={() => handleRate(i + 1)}
+                        full={tempRate ? tempRate >= i + 1 : rate >= i + 1}
+                        onHoverIn={() => setTempRate(i + 1)}
+                        onHoverOut={() => setTempRate(0)}
+                    />
                 })}
             </div>
 
-            <p style={textStyle}>{rate}</p>
+            <p style={textStyle}>{rate || tempRate || ""}</p>
         </div>
     )
 }
 
-function Star({ onRate, full }) {
+function Star({ onRate, full, onHoverIn, onHoverOut }) {
     return (
 
-        (<span style={starStyle} role="button" onClick={onRate} >
+        (<span style={starStyle} role="button"
+            onClick={onRate}
+            onMouseEnter={onHoverIn}
+            onMouseLeave={onHoverOut} >
             {full ? <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
