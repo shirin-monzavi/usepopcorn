@@ -17,7 +17,9 @@ StarRating.propTypes = {
     size:PropTypes.number,
     message:PropTypes.array,
     onSetRate:PropTypes.func,
+
 }
+
 
 export default function StarRating({ maxRate = 5, color = '#ffe121', size = 50, message = [], onSetRate, defualtRate = 0 }) {
     const textStyle = {
